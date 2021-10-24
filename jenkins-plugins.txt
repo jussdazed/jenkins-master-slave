@@ -1,2 +1,3 @@
 ssh-slaves
 ssh-agent
+credentials-binding

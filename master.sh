@@ -22,6 +22,7 @@ sudo rm -rf /var/lib/jenkins/init.groovy.d
 sudo mkdir /var/lib/jenkins/init.groovy.d
 sudo cp -v /vagrant/01_globalMatrixAuthorizationStrategy.groovy /var/lib/jenkins/init.groovy.d/
 sudo cp -v /vagrant/02_createAdminUser.groovy /var/lib/jenkins/init.groovy.d/
+sudo cp -v /vagrant/03_addCredentials.groovy /var/lib/jenkins/init.groovy.d/
 
 sudo service jenkins start
 sleep 1m
@@ -36,6 +37,9 @@ do
 done < /vagrant/jenkins-plugins.txt
 java -jar ./jenkins-cli.jar -auth admin:$JENKINSPWD -s http://localhost:8080 install-plugin $list
 
+echo "Restarting Jenkins"
+sudo service jenkins restart
+sleep 1m
 
 echo "Copy the slave node's key"
 sudo sh -c 'echo "192.168.23.10 jenkins.local jenkins" >> /etc/hosts'
@@ -43,12 +47,3 @@ sudo sh -c 'echo "192.168.23.11 jenkinslave.local jenkinslave"  >> /etc/hosts'
 sudo mkdir /var/lib/jenkins/.ssh
 sudo sh -c 'mv /home/vagrant/id_rsa /var/lib/jenkins/.ssh/id_rsa'
 sudo sh -c 'mv /home/vagrant/id_rsa.pub /var/lib/jenkins/.ssh/id_rsa.pub'
-
-
-echo "Adding node"
-chmod +x add-node.sh
-sed -i 's/<useSecurity>true<\/useSecurity>/<useSecurity>false<\/useSecurity>/' /var/lib/jenkins/config.xml
-./add-node.sh
-
-echo "Restarting Jenkins"
-sudo service jenkins restart

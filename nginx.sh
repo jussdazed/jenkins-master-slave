@@ -14,3 +14,8 @@ sudo systemctl enable nginx
 
 sudo su -c "cp /home/vagrant/config.sh /etc/nginx/conf.d/nodeapp.conf"
 sudo nginx -s reload
+
+echo "Adding node"
+chmod +x add-node.sh
+sed -i 's/<useSecurity>true<\/useSecurity>/<useSecurity>false<\/useSecurity>/' /var/lib/jenkins/config.xml
+./add-node.sh

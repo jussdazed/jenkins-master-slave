@@ -10,5 +10,6 @@ sudo groupadd jenkins
 sudo useradd -m -d /var/lib/jenkins -g jenkins jenkins
 sudo sh -c 'echo "jenkins:jenkins" | chpasswd'
 sudo mkdir -p /var/lib/jenkins/.ssh
-sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh
 sudo mv /home/vagrant/authorized_keys /var/lib/jenkins/.ssh/authorized_keys
+sudo chown jenkins:jenkins /var/lib/jenkins/.ssh/authorized_keys
+sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh

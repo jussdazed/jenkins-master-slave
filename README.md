@@ -6,7 +6,7 @@
 
 Клонируем проект:
 ```sh
-git@github.com:jussdazed/jenkins-master-slave.git
+git clone git@github.com:jussdazed/jenkins-master-slave.git
 ```
 или
 ```sh
